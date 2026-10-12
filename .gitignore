@@ -1,6 +1,5 @@
-.venv/
+﻿.venv/
 __pycache__/
 *.pyc
 data/
-manifest.json
 .env
