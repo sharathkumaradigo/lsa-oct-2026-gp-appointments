@@ -154,3 +154,34 @@ to appointment counts.
 **Reason:** Consistent dimensions support comparable reporting, category sorting and analysis across compatible datasets.
 
 **Impact:** Each fact table uses only the dimensions appropriate to its defined grain. Fact tables are not joined directly at row level for KPI calculations.
+
+## KPI Denominator Decisions
+
+The denominator for each KPI follows the October 2026 GP Appointments project brief.
+
+| KPI | Denominator or comparison rule | Treatment of unknown values |
+|---|---|---|
+| 1. Appointments per month | Sum of appointments for the month | Retain counts as provided |
+| 2. Year-on-year change | Same month in the previous year | Compare like-for-like periods |
+| 3. Same-day share | Appointments with a known booking wait | Exclude appointments with unknown wait |
+| 4. Long-wait share | Appointments with a known booking wait | Exclude appointments with unknown wait |
+| 5. DNA rate | Attended + DNA | Exclude Unknown appointment status |
+| 6. DNA rate by ICB | Same denominator as KPI 5, calculated separately per ICB | Exclude Unknown appointment status; rank highest rate first |
+| 7. Face-to-face share | Appointments with a known appointment mode | Exclude appointments with unknown mode |
+| 8. GP share | Appointments with a known staff type | Exclude appointments with unknown staff type |
+| 9. Busiest weekday | Average appointments per day for each weekday | Use the date dimension to group weekdays |
+| 10. Network and extended-access share | All appointments | Use the full appointment count as the denominator |
+| 11. Share longer than 15 minutes | Appointments with a known duration | Exclude appointments with unknown duration |
+| 12. Data-quality share | All appointments in the relevant source population | Count unmapped and inconsistent mappings, or unknown durations, as specified by the KPI |
+
+### Partial-Year Comparison
+
+The regional dataset ends in June 2022. Year-on-year comparisons must use equivalent periods: compare a month with the same month in the previous year, or January–June with January–June. Do not compare a six-month total with a twelve-month total.
+
+### Missing Population Data
+
+The supplied files do not contain registered-patient counts. Therefore, appointments per 1,000 registered patients cannot be calculated from these datasets. Raw appointment totals should not be used to compare demand between ICBs of different population sizes without this qualification.
+
+### Calculation Rules
+
+Appointment counts remain whole-number additive measures in the clean layer. Rates and percentages are calculated at query time from the relevant numerator and denominator. Fact tables are not joined row by row because their different grains can multiply counts. For comparisons across fact tables, aggregate each table to a compatible shared reporting level first.
