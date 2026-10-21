@@ -119,3 +119,15 @@ Week 1: source extraction, data profiling, validation, and documentation.
 
 ## Data Source
 NHS GP appointments data supplied for the internship project. Refer to the project guide for source details, reporting periods, and limitations.
+
+## Storage Size Comparison
+
+| Dataset / Folder | Size (MB) |
+|---|---:|
+| Raw source data (`data/raw`) | 162.04 |
+| Cleaned regional Parquet | 1.44 |
+| Cleaned national categories Parquet | 2.54 |
+| Cleaned duration Parquet | 0.48 |
+| **Total cleaned Parquet outputs** | **4.46** |
+
+The cleaned datasets are stored as Parquet files partitioned by month. Folder sizes are measured from the files currently present in each directory; the raw folder size includes all files stored under `data/raw`.
