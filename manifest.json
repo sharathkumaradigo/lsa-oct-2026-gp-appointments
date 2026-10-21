@@ -1,6 +1,6 @@
 {
     "project": "NHS GP Appointments ETL",
-    "generated_at_utc": "2026-10-11T19:26:17.271118+00:00",
+    "generated_at_utc": "2026-10-21T19:38:09.201339+00:00",
     "files": [
         {
             "filename": "appointments_regional.csv",
@@ -8,7 +8,7 @@
             "size_bytes": 38723935,
             "sha256": "821ead75b094778f0f40807b0c524c7b6b01135773b12dcb6d0de5ab5ab0926f",
             "row_count": 596821,
-            "extracted_at_utc": "2026-10-11T19:26:17.312788+00:00"
+            "extracted_at_utc": "2026-10-21T19:38:09.243686+00:00"
         },
         {
             "filename": "national_categories.csv",
@@ -16,7 +16,7 @@
             "size_bytes": 111908809,
             "sha256": "3acab693f9425eb3e76a1b378b0c1f809999d2b5e399498a0dccb7f350b5562f",
             "row_count": 817394,
-            "extracted_at_utc": "2026-10-11T19:26:17.410202+00:00"
+            "extracted_at_utc": "2026-10-21T19:38:09.326640+00:00"
         },
         {
             "filename": "actual_duration.csv.xlsx",
@@ -24,7 +24,7 @@
             "size_bytes": 4960229,
             "sha256": "a4d5321377fab435dba100faafbcfd94cc34d8eeaa45395a6ad5c1763c72f3e2",
             "row_count": 137793,
-            "extracted_at_utc": "2026-10-11T19:26:17.410202+00:00"
+            "extracted_at_utc": "2026-10-21T19:38:09.330645+00:00"
         },
         {
             "filename": "actual_duration.csv",
@@ -32,15 +32,15 @@
             "size_bytes": 14300305,
             "sha256": "9fa2db87a0e2cfef61e520a3a8a5bfe76d2358285b3b577998bcce63ef40e91d",
             "row_count": 137793,
-            "extracted_at_utc": "2026-10-11T19:26:17.426208+00:00"
+            "extracted_at_utc": "2026-10-21T19:38:09.340663+00:00"
         },
         {
             "filename": "metadata_nhs.txt",
             "source_filename": "metadata_nhs.txt",
-            "size_bytes": 15246,
-            "sha256": "ad1a81bb9c24037de0e69035ec3968504cf0229c3db454606f8ad8a96a2e1ca9",
+            "size_bytes": 15247,
+            "sha256": "b14bc13f0c33a03ab7d24bc683ac9d587b4118e34f023d01a4ff0e32053c6414",
             "row_count": null,
-            "extracted_at_utc": "2026-10-11T19:26:17.446228+00:00"
+            "extracted_at_utc": "2026-10-21T19:38:09.340663+00:00"
         }
     ]
 }

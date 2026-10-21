@@ -4,22 +4,81 @@
 This project explores NHS GP appointments data and prepares it for a data engineering pipeline. The work includes source data extraction, profiling, validation, and documentation.
 
 ## Project Structure
+
 ```text
 lsa-oct-2026-gp-appointments/
 ├── data/
-│   └── raw/                  # Original source files (not committed)
+│   ├── raw/                         # Original source files
+│   └── processed/
+│       ├── regional/                # Monthly-partitioned Parquet
+│       ├── national_categories/     # Monthly-partitioned Parquet
+│       └── duration/                # Monthly-partitioned Parquet
 ├── docs/
-│   └── data_profile.md       # Data profiling findings
+│   ├── data_profile.md              # Data profiling findings
+│   └── decision_log.md              # Transformation decisions
 ├── src/
-│   ├── extract.py            # Extracts and inventories source data
-│   ├── profile.py            # Profiles dataset structure
-│   ├── validate.py           # Checks data and duplicate rows
-│   └── inspect_duplicates.py # Inspects regional duplicate rows
+│   ├── data_profile.py              # Profiles source datasets
+│   └── transform.py                 # Cleans, validates and writes Parquet
+├── tests/
+│   └── test_transform.py            # Automated transformation tests
 ├── .gitignore
-├── manifest.json             # Source file inventory and checksums
 ├── requirements.txt
 └── README.md
 ```
+
+## Run the Pipeline
+
+Run commands from the project root.
+
+Install dependencies:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Run the transformation pipeline:
+
+```bash
+python src/transform.py
+```
+
+Run the automated tests:
+
+```bash
+python -m pytest
+```
+
+The transformation script reads the three source datasets, applies the configured cleaning and validation rules, and writes month-partitioned Parquet outputs under `data/processed/`.
+
+## Transformation and Validation
+
+- Explicit PySpark schemas are used for the source datasets.
+- Regional records sharing the six descriptive columns are aggregated by summing `count_of_appointments`.
+- Selected text fields are standardised by trimming whitespace and replacing repeated whitespace with a single space.
+- Inconsistent practice staff labels are standardised.
+- National categories dates are parsed using `dd/MM/yyyy`.
+- The duration source is read from the `actual_duration` worksheet in the Excel workbook.
+- Processed datasets are written as Parquet partitioned by month.
+- Row counts and appointment totals are checked to detect unintended changes during transformation.
+
+### Latest Validation Results
+
+| Dataset | Raw rows | Output rows | Appointment total |
+|---|---:|---:|---:|
+| Regional appointments | 596,821 | 295,692 | 742,804,525 |
+| National categories | 817,394 | 817,394 | 296,046,770 |
+| Appointment duration | 137,793 | 137,793 | 167,980,692 |
+
+The pipeline completed successfully, and all three current automated tests passed.
+
+## Current Status
+
+- Source extraction and data profiling completed.
+- Transformation logic implemented for all three datasets.
+- Validation checks and monthly Parquet outputs implemented.
+- Three automated transformation tests passing.
+- Further test coverage, output-size comparisons, wait-band ordering and downstream data modelling remain to be completed.
+
 
 ## Source Datasets
 - `appointments_regional.csv`

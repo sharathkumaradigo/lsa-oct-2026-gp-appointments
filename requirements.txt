@@ -1,2 +1,4 @@
-pandas
+﻿pandas
 openpyxl
+pyspark==4.2.0
+pytest
