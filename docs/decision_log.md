@@ -131,3 +131,26 @@ to appointment counts.
 - Review the final README and pipeline configuration.
 - Develop and test the downstream data model and fact tables.
 
+## Decision: Separate fact tables by grain
+
+**Decision:** Model monthly appointments, appointments by national category, and appointments by duration as three separate fact tables.
+
+**Reason:** The source datasets have different levels of detail. Joining them row by row could multiply appointment counts and produce incorrect KPI results.
+
+**Impact:** Each fact table retains its own grain and applicable dimensions. Shared date and geography dimensions are conformed where their meanings and granularity are compatible.
+
+## Decision: Calculate KPI rates at query time
+
+**Decision:** Store appointment counts in the fact tables and calculate rates or percentages at reporting time.
+
+**Reason:** Pre-calculated percentages cannot safely be summed across groups. The denominator must correspond to the relevant KPI definition, population, geography and reporting period.
+
+**Impact:** The denominator for each KPI must be verified against the supplied KPI definitions before that KPI is implemented.
+
+## Decision: Use a shared dimensional model
+
+**Decision:** Define geography, date, booking-wait, duration and national-category dimensions for the relevant fact tables.
+
+**Reason:** Consistent dimensions support comparable reporting, category sorting and analysis across compatible datasets.
+
+**Impact:** Each fact table uses only the dimensions appropriate to its defined grain. Fact tables are not joined directly at row level for KPI calculations.
